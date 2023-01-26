@@ -21,7 +21,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   const userId = "yamada";
-  // セッションにユーザーIDを格納
   req.session.userId = userId;
   var data = {};
   data.userId = userId;
