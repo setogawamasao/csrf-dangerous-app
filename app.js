@@ -22,7 +22,7 @@ app.get("/login", (req, res) => {
 
 app.post("/authorize", (req, res) => {
   if (req.body.userId !== "suzuki" || req.body.password !== "123") {
-    res.send("ログインに失敗しました");
+    throw new Error("ログイン情報が不正です");
   }
 
   const userId = req.body.userId;
@@ -35,7 +35,7 @@ app.post("/authorize", (req, res) => {
 app.post("/change", (req, res) => {
   // ログイン状態の確認
   if (!req.session.id) {
-    res.send("ログインしてください");
+    throw new Error("ログインしてください");
   }
   // 本来ここでパスワードの変更処理を実施する。
   console.log("session id : ", req.session.id);
@@ -47,5 +47,5 @@ app.post("/change", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`danger app listening at http://sample.com:${port}/login`);
+  console.log(`dangerous app listening at http://sample.com:${port}/login`);
 });
