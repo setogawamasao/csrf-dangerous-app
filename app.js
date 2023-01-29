@@ -1,53 +1,51 @@
 const express = require("express");
 const session = require("express-session");
+const bodyParser = require("body-parser");
+
 const app = express();
 const port = 3001;
 
 // htmlテンプレートエンジンを設定
 app.set("view engine", "ejs");
 
-// sessionの設定
-app.use(
-  session({
-    secret: "secret_key",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-
 // requestのbodyから値を取得する設定
-var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
-  const userId = "suzuki";
+// session設定
+app.use(session({ secret: "secret_key" }));
+
+app.get("/login", (req, res) => {
+  req.session.destroy((err) => {
+    res.render("./login.ejs");
+  });
+});
+
+app.post("/authorize", (req, res) => {
+  if (req.body.userId !== "suzuki" || req.body.password !== "123") {
+    res.send("ログインに失敗しました");
+  }
+
+  const userId = req.body.userId;
   req.session.userId = userId;
-  var data = {};
+  const data = {};
   data.userId = userId;
-  res.render("./index.ejs", data);
+  res.render("./change.ejs", data);
 });
 
-app.get("/change", (req, res) => {
+app.post("/change", (req, res) => {
   // ログイン状態の確認
   if (!req.session.id) {
-    res.send("please login");
+    res.send("ログインしてください");
   }
-  res.render("./change.ejs");
-});
-
-app.post("/submit", (req, res) => {
-  // ログイン状態の確認
-  if (!req.session.id) {
-    res.send("please login");
-  }
+  // 本来ここでパスワードの変更処理を実施する。
   console.log("session id : ", req.session.id);
-  var data = {};
+  const data = {};
   data.userId = req.session.userId;
   data.password = req.body.password;
-  // 本来ここでパスワードの変更処理を実施する。
+
   res.render("./result.ejs", data);
 });
 
 app.listen(port, () => {
-  console.log(`danger app listening at http://localhost:${port}`);
+  console.log(`danger app listening at http://sample.com:${port}/login`);
 });

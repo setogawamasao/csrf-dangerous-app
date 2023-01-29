@@ -6,8 +6,9 @@
   </head>
   <body>
     <p>パスワード変更画面</p>
-    <form action="/submit" method="POST">
-      新パスワード:<input name="password" type="password" />
+    <p>ログインユーザー：<%- userId %>さん</p>
+    <form action="/change" method="POST">
+      新しいパスワード:<input name="password" type="password" />
       <br />
       <input type="submit" value="パスワード変更" />
     </form>
