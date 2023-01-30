@@ -7,7 +7,7 @@
 
 ## 解説
 
-解説は以下の YOUTUBE 参照
+- 解説は以下の YOUTUBE 参照
 
 ## setup
 
