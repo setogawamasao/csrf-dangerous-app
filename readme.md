@@ -1,6 +1,6 @@
 # CSRF 学習用サンプルアプリ
 
-このアプリは CSRF 攻撃に対して脆弱性があるアプリです。
+このアプリは CSRF 攻撃に対して脆弱性があるアプリです。  
 他に、脆弱性を利用した罠アプリ(https://github.com/setogawamasao/csrf-trap-app)  
 脆弱性を対策くしたアプリ(https://github.com/setogawamasao/csrf-safe-app)  
 がありますので、併せてクローンしてください。
